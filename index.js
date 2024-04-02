@@ -18,7 +18,9 @@ allRides.forEach(async ([id, value]) => {
     const fristPosition = ride.data[0]
     const fristLocationData = await getLocationData(fristPosition.latitude, fristPosition.longitude)
 
+    const mapID = `map${ride.id}`
     const mapElement = document.createElement("div")
+    mapElement.id = mapID
     mapElement.style = "width:100px;height:100px"
     mapElement.classList.add("bg-secondary")
     mapElement.classList.add("rounded")
@@ -54,7 +56,20 @@ allRides.forEach(async ([id, value]) => {
     itemElement.appendChild(mapElement)
     itemElement.appendChild(dataElement)
 
-   
+    const map = L.map(mapID,{
+        attributionControl: false,
+        zoomControl: false,
+        dragging:false,
+        scrollWheelZoom: false
+    })
+    map.setView([fristPosition.latitude, fristPosition.longitude], 13)
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_background/{z}/{x}/{y}{r}.{ext}', {
+        minZoom: 5,
+        maxZoom: 20,
+        ext: 'png'
+    }).addTo(map);
+
+    L.marker([fristPosition.latitude, fristPosition.longitude]).addTo(map)
 
 })
 

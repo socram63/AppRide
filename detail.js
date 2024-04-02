@@ -38,6 +38,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     document.querySelector("#data").appendChild(dataElement)
 
+    const deleteButton = document.querySelector("#deleteBtn")
+    deleteButton.addEventListener("click",()=>{
+        deleteRide(rideID)
+        window.location.href = "./"
+    })
+
     const map = L.map("mapDetail")
     map.setView([fristPosition.latitude, fristPosition.longitude], 13)
     L.tileLayer('https://tiles.stadiamaps.com/tiles/stamen_toner_background/{z}/{x}/{y}{r}.{ext}', {
